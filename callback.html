@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login TikTok - Upk Drones Cortes</title><link rel="stylesheet" href="estilo.css"></head><body>
+<h1 id="titulo">Login concluído</h1>
+<p id="instrucao">Copie o endereço abaixo e cole na janela do Bot de Cortes.</p>
+<div class="caixa" id="url"></div>
+<button id="copiar">Copiar</button>
+<script>
+const url = location.href, p = new URLSearchParams(location.search);
+document.getElementById('url').textContent = url;
+if (!p.get('code')) {
+  document.getElementById('titulo').textContent = p.get('error') ? 'O login não foi autorizado' : 'Página de retorno do login';
+  document.getElementById('instrucao').textContent = p.get('error') ? 'Erro: ' + (p.get('error_description') || p.get('error')) : 'Esta página recebe o retorno do login do TikTok.';
+}
+document.getElementById('copiar').onclick = async () => {
+  try { await navigator.clipboard.writeText(url); document.getElementById('copiar').textContent = 'Copiado!'; }
+  catch (e) { const r = document.createRange(); r.selectNode(document.getElementById('url')); getSelection().removeAllRanges(); getSelection().addRange(r); }
+};
+</script>
+<footer><a href="index.html">Início</a></footer></body></html>
